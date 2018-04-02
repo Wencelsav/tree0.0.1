@@ -27,7 +27,7 @@ private:
 
 		}
 		void insertrec(int value) {
-			if (this->value < value) {
+			if (this->value > value) {
 				if (this->left != nullptr) {
 					this->left->insertrec(value);
 				}
@@ -36,7 +36,7 @@ private:
 					this->left->value = value;
 				}
 			}
-			if (this->value > this->value) {
+			if (this->value < value) {
 				if (this->right != nullptr) {
 					this->right->insertrec( value);
 				}
@@ -78,14 +78,16 @@ public:
 	void print(std::ostream & stream) const ;
 };
 void tree_t::insert(int value) {
-	if (root_ == 0) {
+	if (root_->value == 0) {
 		root_->value = value;
+		
 		return;
 	}
 	root_->insertrec( value);
 	return;
 }
 void tree_t::print(std::ostream & stream) const {
+	
 	root_->printrec(stream,0);
 	return;
 }
