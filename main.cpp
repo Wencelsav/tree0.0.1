@@ -1,3 +1,7 @@
+// ConsoleApplication2.cpp: определяет точку входа для консольного приложения.
+//
+
+#include "stdafx.h"
 #include <iostream>
 class tree_t
 {
@@ -14,12 +18,12 @@ private:
 
 	    }
 		~node_t() {
-			if (left != nullptr) {
-				delete left;
-			}
-			if (right != nullptr) {
-				delete right;
-			}
+			
+			delete left;
+			
+			
+			delete right;
+			
 
 		}
 		void insertrec(int value) {
@@ -95,6 +99,7 @@ public:
 void tree_t::insert(int value) {
 	if (root_ == nullptr) {
 		root_ = new node_t;
+		root_->value = value;
 		return;
 		
 	}
@@ -116,15 +121,46 @@ bool tree_t::find(int value) const {
 int main()
 {
 	tree_t tree ;
-	tree.insert(0);
-	tree.insert(8);
-	tree.insert(9);
-	tree.insert(3);
-	tree.insert(7);
-	std::cout << tree.find(7)<<'\n';
-	std::cout << tree.find(6)<<'\n';
-	tree.print(std::cout);
-	system("pause");
+	char com;
+	while (std::cin >> com||com!='q') {
+
+		int r = 0;
+		bool y = 0;
+		switch (com) {
+		case '=':
+			    tree.print(std::cout);
+				break;
+		case '+':
+			
+			   if (std::cin>>r) {
+				   tree.insert(r);
+				   tree.print(std::cout);
+			   }
+			   else {
+				   std::cout << "Error";
+				   exit(0);
+			   }
+			   break;
+		case '?':
+			
+			if (std::cin >>r) {
+				y=tree.find(r);
+				if (y) {
+					std::cout << "true"<<'\n';
+				}
+				else {
+					std::cout << "false"<<'\n';
+				}
+			}
+			else {
+				std::cout << "Error";
+				exit(0);
+			}
+			break;
+		}
+
+	}
+	
     return 0;
 }
 
