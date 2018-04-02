@@ -32,7 +32,7 @@ private:
 					this->left->insertrec(value);
 				}
 				else {
-					this->left = new node_t;
+					this->left = new node_t();
 					this->left->value = value;
 				}
 			}
@@ -41,25 +41,25 @@ private:
 					this->right->insertrec( value);
 				}
 				else {
-					this->right = new node_t;
+					this->right = new node_t();
 					this->right->value = value;
 				}
 			}
 			return;
 		}
-		void printrec(std::ostream & stream,int &minus_num) const  {
-			minus_num += 4;
+		void printrec(std::ostream & stream,int minus_num) const  {
+			
 			if (this->right != nullptr) {
-				this->right->printrec(stream,minus_num);
+				this->right->printrec(stream,minus_num+4);
 			}
-			for (int i = 0; i < minus_num; i++) {
+			for (int i = 0; i < minus_num+4; i++) {
 				stream << '-';
 			}
 			stream << value<< '\n';
 			if (this->left != nullptr) {
-				this->left->printrec(stream,minus_num);
+				this->left->printrec(stream,minus_num+4);
 			}
-			minus_num -= 4;
+		
 			return;
 		}
 	};
@@ -68,7 +68,7 @@ private:
 	
 public:
 	tree_t() {
-		root_ = new node_t;
+		root_ = new node_t();
 	}
 	~tree_t() {
 		delete root_;
@@ -78,11 +78,15 @@ public:
 	void print(std::ostream & stream) const ;
 };
 void tree_t::insert(int value) {
+	if (root_ == 0) {
+		root_->value = value;
+		return;
+	}
 	root_->insertrec( value);
 	return;
 }
 void tree_t::print(std::ostream & stream) const {
-	root_->printrec(stream,this->minus_num);
+	root_->printrec(stream,0);
 	return;
 }
 
@@ -93,7 +97,7 @@ int main()
 	tree.insert(1);
 	tree.insert(3);
 	tree.print(std::cout);
-
+	system("pause");
     return 0;
 }
 
