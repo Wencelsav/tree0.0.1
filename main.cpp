@@ -1,9 +1,8 @@
-
 #include <iostream>
 class tree_t
 {
 private:
-	
+
 	struct node_t {
 		node_t * left;
 		node_t * right;
@@ -13,14 +12,14 @@ private:
 			right = nullptr;
 			value = 0;
 
-	    }
+		}
 		~node_t() {
-			
+
 			delete left;
-			
-			
+
+
 			delete right;
-			
+
 
 		}
 		void insertrec(int value) {
@@ -35,7 +34,7 @@ private:
 			}
 			if (this->value < value) {
 				if (this->right != nullptr) {
-					this->right->insertrec( value);
+					this->right->insertrec(value);
 				}
 				else {
 					this->right = new node_t();
@@ -44,19 +43,19 @@ private:
 			}
 			return;
 		}
-		void printrec(std::ostream & stream,int minus_num) const  {
-			
+		void printrec(std::ostream & stream, int minus_num) const {
+
 			if (this->right != nullptr) {
-				this->right->printrec(stream,minus_num+4);
+				this->right->printrec(stream, minus_num + 4);
 			}
-			for (int i = 0; i < minus_num+4; i++) {
+			for (int i = 0; i < minus_num + 4; i++) {
 				stream << '-';
 			}
-			stream << value<< '\n';
+			stream << value << '\n';
 			if (this->left != nullptr) {
-				this->left->printrec(stream,minus_num+4);
+				this->left->printrec(stream, minus_num + 4);
 			}
-		
+
 			return;
 		}
 		bool findrec(int value) const {
@@ -75,13 +74,13 @@ private:
 			if (this->value == value) {
 				return true;
 			}
-			 
+
 
 		}
 	};
 private:
 	node_t * root_;
-	
+
 public:
 	tree_t() {
 		root_ = nullptr;
@@ -91,21 +90,21 @@ public:
 	}
 	void insert(int value);
 	bool find(int value) const;
-	void print(std::ostream & stream) const ;
+	void print(std::ostream & stream) const;
 };
 void tree_t::insert(int value) {
 	if (root_ == nullptr) {
 		root_ = new node_t;
 		root_->value = value;
 		return;
-		
+
 	}
-	root_->insertrec( value);
+	root_->insertrec(value);
 	return;
 }
 void tree_t::print(std::ostream & stream) const {
-	
-	root_->printrec(stream,0);
+
+	root_->printrec(stream, 0);
 	return;
 }
 bool tree_t::find(int value) const {
@@ -117,36 +116,36 @@ bool tree_t::find(int value) const {
 
 int main()
 {
-	tree_t tree ;
+	tree_t tree;
 	char com;
-	while (std::cin >> com||com!='q') {
+	while (std::cin >> com && com != 'q') {
 
 		int r = 0;
 		bool y = 0;
 		switch (com) {
 		case '=':
-			    tree.print(std::cout);
-				break;
+			tree.print(std::cout);
+			break;
 		case '+':
-			
-			   if (std::cin>>r) {
-				   tree.insert(r);
-				   tree.print(std::cout);
-			   }
-			   else {
-				   std::cout << "Error";
-				   exit(0);
-			   }
-			   break;
+
+			if (std::cin >> r) {
+				tree.insert(r);
+				tree.print(std::cout);
+			}
+			else {
+				std::cout << "Error";
+				exit(0);
+			}
+			break;
 		case '?':
-			
-			if (std::cin >>r) {
-				y=tree.find(r);
+
+			if (std::cin >> r) {
+				y = tree.find(r);
 				if (y) {
-					std::cout << "true"<<'\n';
+					std::cout << "true" << '\n';
 				}
 				else {
-					std::cout << "false"<<'\n';
+					std::cout << "false" << '\n';
 				}
 			}
 			else {
@@ -157,7 +156,6 @@ int main()
 		}
 
 	}
-	
-    return 0;
-}
 
+	return 0;
+}
