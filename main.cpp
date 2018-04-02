@@ -1,7 +1,3 @@
-// ConsoleApplication2.cpp: определяет точку входа для консольного приложения.
-//
-
-#include "stdafx.h"
 #include <iostream>
 class tree_t
 {
@@ -62,13 +58,32 @@ private:
 		
 			return;
 		}
+		bool findrec(int value) const {
+			if (this->value > value) {
+				if (this->left != nullptr) {
+					return this->left->findrec(value);
+				}
+				return false;
+			}
+			if (this->value < value) {
+				if (this->right != nullptr) {
+					return this->right->findrec(value);
+				}
+				return false;
+			}
+			if (this->value == value) {
+				return true;
+			}
+			 
+
+		}
 	};
 private:
 	node_t * root_;
 	
 public:
 	tree_t() {
-		root_ = new node_t();
+		root_ = nullptr;
 	}
 	~tree_t() {
 		delete root_;
@@ -78,10 +93,10 @@ public:
 	void print(std::ostream & stream) const ;
 };
 void tree_t::insert(int value) {
-	if (root_->value == 0) {
-		root_->value = value;
-		
+	if (root_ == nullptr) {
+		root_ = new node_t;
 		return;
+		
 	}
 	root_->insertrec( value);
 	return;
@@ -91,13 +106,23 @@ void tree_t::print(std::ostream & stream) const {
 	root_->printrec(stream,0);
 	return;
 }
+bool tree_t::find(int value) const {
+	if (root_ != nullptr) {
+		return root_->findrec(value);
+	}
+	return false;
+}
 
 int main()
 {
 	tree_t tree ;
-	tree.insert(2);
-	tree.insert(1);
+	tree.insert(0);
+	tree.insert(8);
+	tree.insert(9);
 	tree.insert(3);
+	tree.insert(7);
+	std::cout << tree.find(7)<<'\n';
+	std::cout << tree.find(6)<<'\n';
 	tree.print(std::cout);
 	system("pause");
     return 0;
